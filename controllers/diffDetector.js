@@ -5,7 +5,7 @@ const fs = require('fs');
 module.exports = {
   isDiff: function(url, cb){
 
-    fs.readFile('./diffy.txt', 'utf8', (err, oldScrape) => {
+    fs.readFile('./diffy.html', 'utf8', (err, oldScrape) => {
       if(err){
         console.error(err);
         throw err;
@@ -33,7 +33,7 @@ module.exports = {
 
             if(diffArr.length){
               console.log("Diff detected!");
-              fs.writeFile('./diffy.txt', newHtml , 'utf8', (err, data) => {
+              fs.writeFile('./diffy.html', newHtml , 'utf8', (err, data) => {
                 if(err){
                   console.error(err);
                   throw err;
@@ -66,7 +66,7 @@ module.exports = {
       else{
         let newHtml = html.toString().trim();
         
-        fs.writeFile('./diffy.txt', newHtml , 'utf8', (err, data) => {
+        fs.writeFile('./diffy.html', newHtml , 'utf8', (err, data) => {
           if(err){
             console.error(err);
             throw err;
