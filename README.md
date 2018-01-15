@@ -15,7 +15,7 @@ Download or Clone this repo.
 cd diff-socket
 npm install
 ```
-Set Environmental Variable `TIME_IN_SECONDS` to how often you'd like to scrape for differences.
+Set Environmental Variable `TIME_IN_SECONDS` to how often you'd like to scrape for differences. Note: defaults to 60 seconds
 ```
 npm start
 ```
