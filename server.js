@@ -9,6 +9,9 @@ app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
 
+//First Run!
+diffDetector.firstRun(URL);
+
 io.on('connection', function(client){
 
   console.log("User connected.");

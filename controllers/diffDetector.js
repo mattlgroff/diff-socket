@@ -52,6 +52,32 @@ module.exports = {
 
     });//End FS
 
+  },
+  firstRun: function(url){
+
+    request(url, (error, response, html) => {
+
+      if(error){
+        console.error(`Problem loading ${url}`);
+        console.error(error);
+        return;
+      }
+      //No Error Occured
+      else{
+        let newHtml = html.toString().trim();
+        
+        fs.writeFile('./diffy.txt', newHtml , 'utf8', (err, data) => {
+          if(err){
+            console.error(err);
+            throw err;
+          }
+          console.log("First run, new file written.");
+          return;
+        });
+    
+      }
+
+    });//End Request
   }
 }
 
