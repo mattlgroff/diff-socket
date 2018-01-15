@@ -5,7 +5,9 @@ const fs = require('fs');
 module.exports = {
   isDiff: function(url, cb){
 
-    fs.readFile('./diffy.html', 'utf8', (err, oldScrape) => {
+    const filename = `./diffys/${this.extractHostname(url)}.html`;
+
+    fs.readFile(filename, 'utf8', (err, oldScrape) => {
       if(err){
         console.error(err);
         throw err;
@@ -33,7 +35,10 @@ module.exports = {
 
             if(diffArr.length){
               console.log("Diff detected!");
-              fs.writeFile('./diffy.html', newHtml , 'utf8', (err, data) => {
+
+              const filename = `./diffys/${this.extractHostname(url)}.html`;
+
+              fs.writeFile(filename, newHtml , 'utf8', (err, data) => {
                 if(err){
                   console.error(err);
                   throw err;
@@ -65,8 +70,10 @@ module.exports = {
       //No Error Occured
       else{
         let newHtml = html.toString().trim();
+
+        const filename = `./diffys/${this.extractHostname(url)}.html`;
         
-        fs.writeFile('./diffy.html', newHtml , 'utf8', (err, data) => {
+        fs.writeFile(filename, newHtml , 'utf8', (err, data) => {
           if(err){
             console.error(err);
             throw err;
@@ -78,6 +85,24 @@ module.exports = {
       }
 
     });//End Request
+  },
+  extractHostname: function(url){
+    let hostname;
+    //find & remove protocol (http, ftp, etc.) and get hostname
+
+    if (url.indexOf("://") > -1) {
+        hostname = url.split('/')[2];
+    }
+    else {
+        hostname = url.split('/')[0];
+    }
+
+    //find & remove port number
+    hostname = hostname.split(':')[0];
+    //find & remove "?"
+    hostname = hostname.split('?')[0];
+
+    return hostname;
   }
 }
 
