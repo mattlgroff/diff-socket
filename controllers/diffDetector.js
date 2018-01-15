@@ -1,11 +1,11 @@
 const request = require('request');
-const diff = require('diff');
 const fs = require('fs');
+const crypto = require('crypto');
 
 module.exports = {
   isDiff: function(url, cb){
 
-    const filename = `./diffys/${this.extractHostname(url)}.html`;
+    const filename = `./diffys/${this.extractHostname(url)}.md5`;
 
     fs.readFile(filename, 'utf8', (err, oldScrape) => {
       if(err){
@@ -21,36 +21,30 @@ module.exports = {
           }
           //No Error Occured
           else{
+            let oldHash = oldScrape.toString().trim();
             let newHtml = html.toString().trim();
-            let oldHtml = oldScrape.toString().trim();
+            let newHash = crypto.createHash('md5').update(newHtml).digest("hex");
 
-            let diffy = diff.diffChars(oldHtml,newHtml);
-            let diffArr = [];
-            //Map over differences.
-            diffy.map(diff => {
-              if(diff.added == true || diff.removed == true){
-                diffArr.push('dummy');
-              }
-            });
+            if(oldHash !== newHash){
+              console.log(`Diff detected on ${this.extractHostname(url)}`);   
+              console.log(`Old Hash: ${oldHash}`);
+              console.log(`New Hash: ${newHash}`);
 
-            if(diffArr.length){
-              console.log("Diff detected!");
 
-              const filename = `./diffys/${this.extractHostname(url)}.html`;
-
-              fs.writeFile(filename, newHtml , 'utf8', (err, data) => {
+              fs.writeFile(filename, newHash , 'utf8', (err, data) => {
                 if(err){
                   console.error(err);
                   throw err;
                 }
-                console.log("New file written.");
+                //console.log("New file written.");
                 return cb(true);
               });
             }
             else{
-              console.log("Nothing new.");
+              //console.log("Nothing new.");
               return cb(false);
             }
+
           }
 
       });//End Request
@@ -70,15 +64,16 @@ module.exports = {
       //No Error Occured
       else{
         let newHtml = html.toString().trim();
+        let newHash = crypto.createHash('md5').update(newHtml).digest("hex");
 
-        const filename = `./diffys/${this.extractHostname(url)}.html`;
+        const filename = `./diffys/${this.extractHostname(url)}.md5`;
         
-        fs.writeFile(filename, newHtml , 'utf8', (err, data) => {
+        fs.writeFile(filename, newHash , 'utf8', (err, data) => {
           if(err){
             console.error(err);
             throw err;
           }
-          console.log("First run, new file written.");
+          console.log(`Initializing diff-socket for ${this.extractHostname(url)}`);
           return;
         });
     

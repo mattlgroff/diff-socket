@@ -4,7 +4,7 @@ const diffDetector = require('./diffDetector.js');
 module.exports = {
   seconds: function(url ,io, seconds){
     cron.schedule(`*/${seconds} * * * * *`, function(){
-      console.log(`running diffDetector every ${seconds} seconds`);
+      //console.log(`running diffDetector every ${seconds} seconds`);
 
       diffDetector.isDiff(url, function(diff){
         //Diffence Detected
@@ -13,7 +13,7 @@ module.exports = {
         }
         //No Difference Detected
         else{
-          io.emit('server response', `No change detected.`);
+          // io.emit('server response', `No change detected.`);
         }
       });
     });

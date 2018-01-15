@@ -7,7 +7,7 @@
  - [Express](https://github.com/expressjs/express)
  - [Request](https://github.com/request/request)
  - [File-System](https://github.com/douzi8/file-system)
- - [Jsdiff](https://github.com/kpdecker/jsdiff)
+ - [Crypto](https://github.com/npm/deprecate-holder)
 
 ## Installation
 Download or Clone this repo.
@@ -15,7 +15,7 @@ Download or Clone this repo.
 cd diff-socket
 npm install
 ```
-Set Environmental Variable `URL_TO_DIFF` to the Site you want to check for changes.
+Set Environmental Variable `TIME_IN_SECONDS` to how often you'd like to scrape for differences.
 ```
 npm start
 ```
