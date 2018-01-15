@@ -3,7 +3,7 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const PORT = process.env.PORT || 8080;
 const diffDetector = require('./controllers/diffDetector.js');
-const URL = process.env.URL_TO_DIFF || 'http://localhost:8080';
+const URL = process.env.URL_TO_DIFF || `http://localhost:${PORT}`;
 
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
