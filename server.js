@@ -14,15 +14,14 @@ io.on('connection', function(client){
   console.log("User connected.");
 
   client.on('chat message', function(msg){
-    console.log(diffDetector.isDiff(URL));
 
     diffDetector.isDiff(URL, function(diff){
+      //Diffence Detected
       if(diff){
-        console.log("IsDiff is true.");
         io.emit('server response', `Change detected.`);
       }
+      //No Difference Detected
       else{
-        console.log("IsDiff is false.");
         io.emit('server response', `No change detected.`);
       }
     });
