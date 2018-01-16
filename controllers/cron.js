@@ -8,8 +8,8 @@ module.exports = {
 
       diffDetector.isDiff(url, function(diff){
         //Diffence Detected
-        if(diff){
-          io.emit('server response', `Change detected.`);
+        if(diff.change){
+          io.emit('change', `Change detected at ${url} MD5:${diff.hash}`);
         }
         //No Difference Detected
         else{

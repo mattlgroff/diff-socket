@@ -17,7 +17,7 @@ module.exports = {
           if(error){
             console.error(`Problem loading ${url}`);
             console.error(error);
-            return cb(error);
+            return cb({error:error});
           }
           //No Error Occured
           else{
@@ -37,12 +37,18 @@ module.exports = {
                   throw err;
                 }
                 //console.log("New file written.");
-                return cb(true);
+                return cb({
+                  change: true,
+                  hash: newHash
+                });
               });
             }
             else{
               //console.log("Nothing new.");
-              return cb(false);
+              return cb({
+                  change: false,
+                  hash: oldHash
+              });
             }
 
           }

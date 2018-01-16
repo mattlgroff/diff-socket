@@ -7,10 +7,6 @@ const cron = require('./controllers/cron.js');
 require('dotenv').config();
 const SECONDS = process.env.TIME_IN_SECONDS || 60;
 
-app.get('/', function(req, res){
-  res.sendFile(__dirname + '/index.html');
-});
-
 io.on('connection', function(client){
 
   const URL_TO_DIFF = client.handshake.headers.diff_url;
