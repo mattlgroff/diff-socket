@@ -20,7 +20,10 @@ Set Environmental Variable `TIME_IN_SECONDS` to how often you'd like to scrape f
 npm start
 ```
 
-## What is this for?
+## Client Apps
+- [diff-bot](https://github.com/mattlgroff/diff-bot) Discord WebHook
+- [diff-tweeter](https://github.com/mattlgroff/diff-tweeter) Twitter API
 
+## What is this for?
 This node server will emit a socket.io message whenever a change is detected in the HTML of the site chosen.
 The downside to this is that single-page-apps like React projects won't show any changes.
